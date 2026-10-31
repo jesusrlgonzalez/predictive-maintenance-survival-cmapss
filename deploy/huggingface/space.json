@@ -1,0 +1,38 @@
+{
+  "title": "Condition-based maintenance",
+  "emoji": "⚙️",
+  "colorFrom": "gray",
+  "colorTo": "blue",
+  "entrypoint": "app/streamlit_app.py",
+  "requirements": [
+    "plotly",
+    "lifelines",
+    "openpyxl"
+  ],
+  "include": [
+    "app/streamlit_app.py",
+    "src/pm_survival",
+    "reports/demo"
+  ],
+  "short_description": "Which units to service this week; try your work orders",
+  "summary": "NASA C-MAPSS engines, or upload your own work orders: the weekly intervention list is computed in your browser and your data never leave it.",
+  "repo": "predictive-maintenance-survival-cmapss",
+  "license": "mit",
+  "streamlitConfig": {
+    "theme.base": "light",
+    "theme.primaryColor": "#0E0F11",
+    "theme.backgroundColor": "#FFFFFF",
+    "theme.secondaryBackgroundColor": "#F6F7F5",
+    "theme.textColor": "#0E0F11",
+    "theme.redColor": "#D7261E",
+    "theme.greenColor": "#1F7A3D",
+    "theme.yellowColor": "#FFD21F",
+    "theme.grayColor": "#4A4E54",
+    "theme.linkColor": "#0E0F11",
+    "theme.borderColor": "#C9CDD1",
+    "theme.showWidgetBorder": true,
+    "theme.baseRadius": "4px",
+    "theme.buttonRadius": "6px",
+    "theme.dataframeHeaderBackgroundColor": "#F6F7F5"
+  }
+}

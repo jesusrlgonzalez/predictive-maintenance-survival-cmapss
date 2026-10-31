@@ -1,0 +1,52 @@
+name: Demo on Hugging Face
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: hf-space
+  cancel-in-progress: true
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE: JesusRLGonzalez/predictive-maintenance-survival-cmapss
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the static Space (stlite)
+        run: |
+          python3 deploy/huggingface/build_space.py _space
+          du -sh _space
+      - name: Skip when the Hugging Face token is not configured
+        id: token
+        run: |
+          if [ -n "$HF_TOKEN" ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "::notice::Add the HF_TOKEN secret to publish the demo"; fi
+      - uses: actions/setup-python@v5
+        if: steps.token.outputs.ready == 'true'
+        with:
+          python-version: "3.12"
+      - name: Publish to the Space
+        if: steps.token.outputs.ready == 'true'
+        run: |
+          pip install -q "huggingface_hub>=0.34,<1"
+          python - <<'PY'
+          import os, sys
+          from huggingface_hub import HfApi
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          space = os.environ["HF_SPACE"]
+          try:
+              who = api.whoami()
+              role = (who.get("auth", {}).get("accessToken", {}) or {}).get("role", "unknown")
+              print(f"Token belongs to {who.get('name')} with role {role}")
+              api.create_repo(space, repo_type="space", space_sdk="static", exist_ok=True)
+              api.upload_folder(folder_path="_space", repo_id=space, repo_type="space", delete_patterns="*",
+                                commit_message=f"Sync from GitHub {os.environ['GITHUB_SHA'][:7]}")
+          except Exception as exc:
+              msg = str(exc).splitlines()[0][:300]
+              print(f"::error title=Hugging Face publish failed::{type(exc).__name__}: {msg}")
+              sys.exit(1)
+          print(f"https://huggingface.co/spaces/{space}")
+          PY
