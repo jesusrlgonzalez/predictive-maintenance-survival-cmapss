@@ -118,6 +118,10 @@ pytest test/product                                      # 81 pruebas, sin datos
 
 Weibull de flota con β ≈ 4.6 (desgaste), modelo Weibull AFT sobre los primeros 20 ciclos y política de reemplazo por edad: t* ≈ 105 ciclos con C_f/C_p = 10. Es la línea base contra la que se compara todo lo anterior ([evaluación](reports/eval_FD001.md)).
 
+## Procedencia
+
+Este repositorio parte de un único commit (0e1814a, 31 oct 2026). El trabajo anterior con C-MAPSS está en el historial publicado de [predictive-quality-mlops](https://github.com/jesusrlgonzalez/predictive-quality-mlops): el commit [8e5e667](https://github.com/jesusrlgonzalez/predictive-quality-mlops/commit/8e5e667) (4 oct 2026) añadió una regresión de vida útil restante (LightGBM con variables calculadas solo con ciclos pasados y validación cruzada agrupada por motor; RMSE en el conjunto de prueba oficial de 17.2 en FD001 y 14.5 en FD002 contra la RUL con tope de 125, o 18.4 y 26.7 sin tope) y el commit [0844292](https://github.com/jesusrlgonzalez/predictive-quality-mlops/commit/0844292) (15 oct 2026) la trasladó aquí, donde se rehízo como análisis de supervivencia con política de mantenimiento por condición. Esos commits se conservan como traza de esa decisión; las cifras vigentes son las de arriba.
+
 ## Límites
 
 - FD001 tiene un solo régimen de operación y un solo modo de falla; FD002–FD004 exigen reentrenar y revalidar.

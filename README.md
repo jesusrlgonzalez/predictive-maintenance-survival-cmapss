@@ -117,6 +117,10 @@ pytest test/product                                      # 81 tests, no NASA dat
 
 Fleet Weibull with β ≈ 4.6 (wear-out), a Weibull AFT model on the first 20 cycles and an age-replacement policy: t* ≈ 105 cycles with C_f/C_p = 10. It is the baseline everything above is compared with ([evaluation](reports/eval_FD001.md)).
 
+## Provenance
+
+This repository starts from a single commit (0e1814a, 31 Oct 2026). The earlier C-MAPSS work lives in the published history of [predictive-quality-mlops](https://github.com/jesusrlgonzalez/predictive-quality-mlops): commit [8e5e667](https://github.com/jesusrlgonzalez/predictive-quality-mlops/commit/8e5e667) (4 Oct 2026) added a remaining-useful-life regression (LightGBM with features computed only from past cycles, grouped CV by engine; official test set RMSE 17.2 on FD001 and 14.5 on FD002 against RUL capped at 125, or 18.4 and 26.7 uncapped) and commit [0844292](https://github.com/jesusrlgonzalez/predictive-quality-mlops/commit/0844292) (15 Oct 2026) moved that work here, where it was redone as survival analysis with a condition-based maintenance policy. Those commits are kept as the trace of that decision; the figures above are the current ones.
+
 ## Limits
 
 - FD001 has a single operating regime and a single failure mode; FD002–FD004 require retraining and revalidation.
