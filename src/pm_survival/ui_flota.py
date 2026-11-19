@@ -33,6 +33,9 @@ def render():
     st.markdown("Sube la exportación de tu sistema de mantenimiento (SAP PM, Maximo o Excel): equipo, fecha y tipo de orden. "
                 "Obtienes el intervalo preventivo óptimo por familia, el ahorro anual y la lista de equipos a intervenir esta "
                 "semana. **El archivo se procesa en tu navegador: no se envía a ningún servidor.**")
+    st.caption("Aviso de uso de datos: para funcionar, la página descarga bibliotecas y tipografías de servicios públicos "
+               "(jsDelivr, PyPI, Google Fonts), que reciben tu dirección IP y datos técnicos de tu navegador, pero no tu "
+               "archivo. No subas datos personales ni confidenciales sin autorización de tu empresa.")
     st.download_button("Descargar plantilla de Excel (con una flota de ejemplo)", _template(), "plantilla_ordenes.xlsx",
                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     up = st.file_uploader("Tu archivo .xlsx", type=["xlsx"])

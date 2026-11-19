@@ -5,9 +5,13 @@
   "colorTo": "blue",
   "entrypoint": "app/streamlit_app.py",
   "requirements": [
-    "plotly",
-    "lifelines",
-    "openpyxl"
+    "plotly==7.1.0",
+    "lifelines==0.30.3",
+    "autograd-gamma==0.5.0",
+    "formulaic==1.2.2",
+    "interface-meta==2.0.1",
+    "openpyxl==3.1.5",
+    "et-xmlfile==2.0.0"
   ],
   "include": [
     "app/streamlit_app.py",
